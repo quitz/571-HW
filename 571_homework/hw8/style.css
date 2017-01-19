@@ -1,0 +1,86 @@
+/* Styles go here */
+
+#ver_nav_bar li{
+    display: block;
+    width: 100%;
+}
+.yl{
+    background-color: yellow;
+}
+.wh{
+    background-color: white;
+}
+#ver_nav_bar a{
+    padding-left: 0px
+}
+.my-controller {
+    margin: 0px;
+    padding:0px;
+}
+.my-controller small {
+  color: #c99;
+}
+.other-controller {
+  border: 1px solid #ccf;
+  padding: 5px;
+  margin: 3px;
+}
+.other-controller small {
+  color: #99c;
+}
+#top_bar{
+    margin:0;
+    height:50px;
+    background-color:white;
+}
+#top_bar_left_div{
+    padding:0px;
+    margin:0px;
+}
+#top_btn{
+    height:50px;
+}
+#ver_nav_bar{
+    height:900px;
+    position:fixed;
+    top:49px;
+    width:130px;
+}
+#main{
+    padding:0px;
+    margin-left:140px;
+    margin-top:50px;
+    position:absolute;
+    overflow:hidden;
+}
+.ph1{
+    
+    margin-top:0;
+    background-color:#f5f5f5;
+}
+.cl1{
+    padding: 0;
+}
+h2{
+    margin: 0px;
+}
+.ph2{
+    padding:0;
+    background-color:white;
+}
+.pb1{
+    border:1px solid rgb(229, 229, 229);
+    padding:0px;
+    margin:10px;
+}
+.pb1_title{
+    height:56px;
+    background-color:#f5f5f5;
+}
+.item_ph1{
+    text-align:left;
+    background-color:white;
+}
+.glyphicon-trash:hover {
+    background-color: orangered;
+}

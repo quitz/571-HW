@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Workbook>
+  <Table>
+   <Header>
+    <Data>Top Slot</Data>
+    <Data>Newspaper</Data>
+    <Data>City / State</Data>
+    <Data>HomePage</Data>
+    <Data>Logo</Data>
+   </Header>
+  </Table>
+</Workbook>

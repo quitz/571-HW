@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <script src="dirPagination.js"></script>
+  
+</head>
+
+<body>    
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-fixed-top" id="top_bar">
+                <div class="container-fluid cl1">
+                    <div class="col-xs-3 col-md-5" id="top_bar_left_div">
+                        <button type="button" class="btn" id="top_btn">
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-9 col-md-7">
+                        <a href="http://sunlightfoundation.com/" target="_blank"><img src="logo.png">CongressAPI</a>
+                    </div>
+                </div>
+            </nav>
+        
+            <div ng-controller="MyController" class="my-controller">
+      
+                <nav class="navbar navbar-inverse" id='ver_nav_bar' >
+                    <ul class="nav navbar-nav nav-stacked">
+                        <li class="li_ali"><a  id="side_1" ng-click="func1()"><span class="glyphicon glyphicon-user"></span><span id="w1"> Legistors</span></a></li>
+                        <li class="li_ali"><a ng-click="bill_func1()"><span class="glyphicon glyphicon-unchecked"></span><span id="w2"> Bills</span></a></li>
+                        <li  class="li_ali"><a ng-click="com_func1()"><span class="glyphicon glyphicon-log-in"></span><span id="w3"> Committes</span></a></li>
+                        <li  class="li_ali"><a ng-click="fav_func1()"><span class="glyphicon glyphicon-star"></span><span id="w4"> Favorites</span></a></li>
+                    </ul>
+                </nav>   
+        
+                <div class="col-xs-10 col-md-10" id="main">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item  active" >
+                                <div class="panel panel-default" ng-show='page==0'>
+                                    <div class="page-header ph1">
+                                        <h2 ng_model="search_title">Legistors</h2>
+                                    </div>
+
+                                    <div class="panel-heading ph2" >
+                                       <ul id="tab" class="nav nav-tabs" style="width:100%;">
+                                            <li class="active" id="leg1"><a data-toggle="tab" ng-click="func1()">By State</a></li>
+                                            <li id="leg2"><a data-toggle="tab" ng-click="func2()">House</a></li>
+                                            <li id="leg3"><a data-toggle="tab" ng-click="func3()">Senate</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="panel-body pb1" >
+                                        <div class="pb1_title">
+                                            <div class="col-xs-7 col-md-9">
+                                                <h5>{{ sub_title }}</h5>  
+                                            </div>
+                                            <div class="col-xs-5 col-md-3">
+                                                <label for="search"></label>
+                                                <input ng-model="q" id="search" class="form-control" placeholder="Search" ng-hide="myvalue">
+                                                <select ng-model="selectedName" ng-init="selectedName = state_names[0]" ng-options="x for x in state_names" ng-hide="myvalue1" ng-change="state_name_update()" style="width:100%">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">  
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th>Party</th>
+                                                    <th>Name</th>
+                                                    <th>Chamber</th>
+                                                    <th>District</th>
+                                                    <th>State</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr dir-paginate="meal in meals | filter: selectedName1 | filter:q | itemsPerPage: 10" current-page="currentPage">
+                                                    <td><img style="width:30px;height:30px;" ng-src="{{ meal.party }}"></td>
+                                                    <td>{{ meal.last_name + ',' + meal.first_name }}</td>
+                                                    <td><img style="width:20px;height:20px;" ng-src="{{ meal.chamber }}">{{ meal.cm }}</td>
+                                                    <td>{{ meal.district }}</td>
+                                                    <td>{{ meal.state_name }}</td>
+                                                    <td><button class="btn btn-primary" ng-click="showDetails(meal.bioguide_id)">View Details</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>  
+                                        <div ng-controller="OtherController" class="other-controller" style="border:0px black">
+                                            <div class="text-center">
+                                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html">
+                                                </dir-pagination-controls>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="panel panel-default" ng-show='page==1'>
+                                    <div class="page-header ph1">
+                                        <h2>Bills</h2>
+                                    </div>
+
+                                    <div class="panel-heading ph2">
+                                       <ul class="nav nav-tabs" style="width:100%;">
+                                            <li class="active" id="bill1"><a  data-toggle="tab"  ng-click="bill_func1()">Active Bills</a></li>
+                                            <li id="bill2"><a data-toggle="tab" ng-click="bill_func2()">New Bills</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="panel-body pb1">              
+                                        <div class="pb1_title">
+                                            <div class="col-xs-7 col-md-9">
+                                                <h5>{{ sub_title_bill }}</h5>  
+                                            </div>
+                                            <div class="col-xs-5 col-md-3" >
+                                                <label for="search"></label>
+                                                <input ng-model="qq" id="search" class="form-control" placeholder="Search">
+                                            </div>
+                                        </div>
+
+                                        <div class="table-responsive">  
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th>Bill ID</th>
+                                                    <th>Bill Type</th>
+                                                    <th>Title</th>
+                                                    <th>Chamber</th>
+                                                    <th>Introduced On</th>
+                                                    <th>Sponsor</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr dir-paginate="meal in meals | filter:qq | itemsPerPage: 10 " current-page="currentPage">
+                                                    <td>{{ meal.bill_id | uppercase}}</td>
+                                                    <td>{{ meal.bill_type | uppercase}}</td>
+                                                    <td>{{ meal.official_title }}</td>
+                                                    <td><img style="width:20px;height:20px;" ng-src="{{ meal.ci }}">{{ meal.chamber }}</td>
+                                                    <td>{{ meal.introduced_on }}</td>
+                                                    <td>{{ meal.sponsor.title + ',' + meal.sponsor.last_name + ',' + meal.sponsor.first_name }}</td>
+                                                    <td><button class="btn btn-primary" ng-click="showBillDetails(meal)">View Details</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>  
+                                        <div ng-controller="OtherController" class="other-controller" style="border:0px black">
+                                            <div class="text-center">
+                                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html">
+                                                </dir-pagination-controls>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="panel panel-default" ng-show='page==2'>
+                                    <div class="page-header ph1">
+                                        <h2>Committees</h2>
+                                    </div>
+
+                                    <div class="panel-heading ph2">
+                                       <ul class="nav nav-tabs" style="width:100%;">
+                                            <li class="active" id="com1"><a  data-toggle="tab"  ng-click="com_func1()">House</a></li>
+                                            <li id="com2"><a data-toggle="tab" ng-click="com_func2()">Senate</a></li>
+                                            <li id="com3"><a data-toggle="tab" ng-click="com_func3()">Joint</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="panel-body pb1">              
+                                        <div class="pb1_title">
+                                            <div class="col-xs-7 col-md-9">
+                                                <h5>{{ sub_title_com }}</h5>  
+                                            </div>
+                                            <div class="col-xs-5 col-md-3" >
+                                              <label for="search"></label>
+                                              <input ng-model="qqq" id="search" class="form-control" placeholder="Search">
+                                            </div>
+                                        </div>  
+                                        <div class="table-responsive">  
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Chamber</th>
+                                                    <th>Committee ID</th>
+                                                    <th>Name</th>
+                                                    <th>Parent Committee</th>
+                                                    <th>Contact</th>
+                                                    <th>Office</th>
+                                                </tr>
+                                                <tr dir-paginate="meal in meals | filter:qqq | itemsPerPage: 10 " current-page="currentPage">
+                                                    <td>
+                                                        <button type="button" class="btn btn-default btn-sm" ng-click="favor(meal);">
+                                                        <span class="glyphicon glyphicon-star-empty {{meal.color}}" id="{{ meal.committee_id }}"></span>    
+                                                        </button>
+                                                    </td>
+                                                    <td><img style="width:18px;height:20px;" ng-src="{{ meal.ci }}">{{ meal.chamber }}</td>
+                                                    <td>{{ meal.committee_id | uppercase}}</td>
+                                                    <td>{{ meal.name }}</td>
+                                                    <td>{{ meal.parent_committee_id }}</td>
+                                                    <td>{{ meal.phone}}</td>
+                                                    <td>{{ meal.office }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>  
+                                        <div ng-controller="OtherController" class="other-controller" style="border:0px black">
+                                            <div class="text-center">
+                                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html">
+                                                </dir-pagination-controls>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="panel panel-default" ng-show='page==3'>
+                                    <div class="page-header ph1">
+                                        <h2>Favoirites</h2>
+                                        </div>
+
+                                    <div class="panel-heading ph2">
+                                       <ul class="nav nav-tabs" style="width:100%;">
+                                            <li class="active" id="fav1"><a  data-toggle="tab"  ng-click="fav_func1()">Legislators</a></li>
+                                            <li id="fav2"><a data-toggle="tab" ng-click="fav_func2()">Bills</a></li>
+                                            <li id="fav3"><a data-toggle="tab" ng-click="fav_func3()">Committees</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="panel-body pb1" ng-show='fpage==0'>              
+                                        <div class="pb1_title">
+                                            <div class="col-xs-12">
+                                                <h5>{{ sub_title_fav }}</h5>  
+                                            </div>
+                                        </div>  
+                                        <div class="table-responsive">  
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Image</th>
+                                                    <th>Party</th>
+                                                    <th>Name</th>
+                                                    <th>Chamber</th>
+                                                    <th>State</th>
+                                                    <th>Email</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr ng-repeat="meal in fav_leg">
+                                                    <td>
+                                                        <button type="button" class="btn btn-default btn-sm" ng-click="cancel_favor(meal.bioguide_id);">
+                                                        <span class="glyphicon glyphicon-trash"></span> 
+                                                        </button>
+                                                    </td>
+                                                    <td><img style="width:30px;height:30px;" ng-src="{{ meal.image }}"></td>
+                                                    <td><img style="width:30px;height:30px;" ng-src="{{ meal.pi }}"></td>
+                                                    <td>{{ meal.name }}</td>
+                                                    <td><img style="width:18px;height:20px;" ng-src="{{ meal.ci }}">{{ meal.chamber }}</td>
+                                                    <td>{{ meal.state }}</td>
+                                                    <td><a ng-href="mailto:{{ meal.email}}">{{ meal.email }}</a></td>
+                                                    <td><button class="btn btn-primary" ng-click="showDetails(meal.bioguide_id)">View Details</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="panel-body pb1" ng-show='fpage==1'>              
+                                        <div class="pb1_title">
+                                            <div class="col-xs-12">
+                                                <h5>Favorite Bills</h5>  
+                                            </div>
+                                        </div>  
+                                        <div class="table-responsive">  
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Bill ID</th>
+                                                    <th>Bill Type</th>
+                                                    <th>Title</th>
+                                                    <th>Chamber</th>
+                                                    <th>Introduced On</th>
+                                                    <th>Sponsor</th>
+                                                    <th></th>
+                                                </tr>
+                                                <tr ng-repeat="meal in fav_bill">
+                                                    <td>
+                                                        <button type="button" class="btn btn-default btn-sm" ng-click="cancel_favor_bill(meal.bill_id);">
+                                                        <span class="glyphicon glyphicon-trash"></span> 
+                                                        </button>
+                                                    </td>
+                                                    <td>{{ meal.bill_id | uppercase}}</td>
+                                                    <td>{{ meal.bill_type | uppercase}}</td>
+                                                    <td>{{ meal.official_title }}</td>
+                                                    <td><img style="width:20px;height:20px;" ng-src="{{ meal.ci }}">{{ meal.chamber }}</td>
+                                                    <td>{{ meal.introduced_on }}</td>
+                                                    <td>{{ meal.sponsor.title + ',' + meal.sponsor.last_name + ',' + meal.sponsor.first_name }}</td>
+                                                    <td><button class="btn btn-primary" ng-click="showBillDetails(meal)">View Details</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body pb1" ng-show='fpage==2'>              
+                                        <div class="pb1_title">
+                                            <div class="col-xs-12">
+                                                <h5>Favorite Committees</h5>  
+                                            </div>
+                                        </div> 
+
+                                        <div class="table-responsive">  
+                                            <table class="table table-hover">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Chamber</th>
+                                                    <th>Committee ID</th>
+                                                    <th>Name</th>
+                                                    <th>Parent Committee</th>
+                                                    <th>Sub Committee</th>
+                                                </tr>
+                                                <tr ng-repeat="meal in fav_com">
+                                                    <td>
+                                                        <button type="button" class="btn btn-default btn-sm" ng-click="cancel_favor_com(meal.committee_id);">
+                                                        <span class="glyphicon glyphicon-trash"></span> 
+                                                        </button>
+                                                    </td>
+                                                    <td><img style="width:18px;height:20px;" ng-src="{{ meal.ci }}">{{ meal.chamber }}</td>
+                                                    <td>{{ meal.committee_id | uppercase}}</td>
+                                                    <td>{{ meal.name }}</td>
+                                                    <td>{{ meal.parent_committee_id }}</td>
+                                                    <td>{{ meal.subcommittee }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading item_ph1">
+                                        <button type="button" class="btn btn-default btn-sm" id="rev">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </button>
+                                        <h5 style="display:inline;"> Details</h5>
+                                        <span style="float:right">
+                                            <button type="button" class="btn btn-default btn-sm" id="favb">
+                                                <span class="glyphicon glyphicon-star-empty wh" id="favi"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+
+                                    <div class="panel-body" id="pb2" ng-show='page==0'>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-5 col-xs-12" id="dt_div" style="margin:auto 0">
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="personal_info">                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-xs-12" id="co_div" style="margin:auto 0">
+                                                    <h5 style="margin-top:0px">Committees</h5>
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="comm_info">                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 col-md-offset-5 col-xs-12" id="bi_div">
+                                                    <h5 style="margin-top:0px">Bills</h5>
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="bill_info">
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body" ng-show='page==1'>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-5 col-xs-12" id="bill_2_div" style="height:520px">
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="bill_table_info">                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7 col-xs-12" id="bill_1_div" style="height:520px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+    
+    $(document).ready(function(){
+        $(".carousel").carousel({
+            interval : false
+        });
+        $(".btn-primary").click(function(){
+            $("#myCarousel").carousel('next');
+        });
+        $("#top_btn").click(function(){
+            //alert(1);
+            $("#ver_nav_bar").toggle();
+            if($("#ver_nav_bar").css('display') == 'none'){ //hide
+                $("#main").removeClass();
+                //col-xs-11 col-md-11
+                $("#main").addClass("col-xs-12");
+                $("#main").addClass("col-md-12");
+                $("#main").css('margin-left','0');
+                win_wid = $(window).width();
+                $("#main").width(win_wid);
+            }
+            else{
+                $("#main").removeClass();
+                //col-xs-11 col-md-11
+                $("#main").addClass("col-xs-11");
+                $("#main").addClass("col-md-11");
+                var a= $("#ver_nav_bar").width();
+                a = a+10;
+                a += 'px';
+                $("#main").css('margin-left',a);
+            }
+        });    
+    });
+    
+    $(window).resize(function(){
+        sdb = $("#main").width();
+        win_wid = $(window).width();
+        var l = 30;
+        var lpx = l+5;
+        lpx += 'px';
+        if(sdb<=800){
+            $("#w1").remove();
+            $("#w2").remove();
+            $("#w3").remove();
+            $("#w4").remove();
+            $(".li_ali").css('text-align','center');
+            $("#ver_nav_bar").width(l);
+            $("#main").css('margin-left',lpx);
+        }
+        vnb = $("#ver_nav_bar").width();
+        var d =win_wid-vnb-20;
+        $("#main").width(d);
+    });
+    
+    
+    function doResize(){
+        sdb = $("#main").width();
+        win_wid = $(window).width();
+        var l = 30;
+        var lpx = l+5;
+        lpx += 'px';
+        if(sdb<=800){
+            $("#w1").remove();
+            $("#w2").remove();
+            $("#w3").remove();
+            $("#w4").remove();
+            $(".li_ali").css('text-align','center');
+            $("#ver_nav_bar").width(l);
+            $("#main").css('margin-left',lpx);
+        }
+        vnb = $("#ver_nav_bar").width();
+        var d =win_wid-vnb-20;
+        $("#main").width(d);
+        
+    }
+    window.onload = function(){            
+        doResize();
+    };
+    
+</script>
+</body>
+</html>

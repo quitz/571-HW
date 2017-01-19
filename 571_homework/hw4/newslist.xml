@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<Workbook>
+  <Table>
+   <Header>
+    <Data>Top Slot</Data>
+    <Data>Newspaper</Data>
+    <Data>City / State</Data>
+    <Data>HomePage</Data>
+    <Data>Logo</Data>
+   </Header>
+   
+   <Row>
+    <Slot>1</Slot>
+    <Newspaper>The New York Times</Newspaper>
+    <Location>
+        <City>New York</City>
+        <State>NY</State>
+    </Location>
+    <HomePage>http://www.nytimes.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/NYT_logo.png</Logo>
+   </Row>
+
+   <Row>
+    <Slot>2</Slot>
+    <Newspaper>Daily News</Newspaper>
+    <Location>
+        <City>New York</City>
+        <State>NY</State>
+    </Location>
+    <HomePage>http://www.nydailynews.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/DN_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <Slot>3</Slot>
+    <Newspaper>Washington Post</Newspaper>
+    <Location>
+        <City>Washington</City>
+        <State>DC</State>
+    </Location>
+    <HomePage>https://www.washingtonpost.com/</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/WP_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <Slot>4</Slot>
+    <Newspaper>USA Today</Newspaper>
+    <Location>
+        <City>Arlington</City>
+        <State>VA</State>
+    </Location>
+    <HomePage>http://www.usatoday.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/UT_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <Slot>5</Slot>
+    <Newspaper>Los Angeles Times</Newspaper>
+    <Location>
+        <City>Los Angeles</City>
+        <State>CA</State>
+    </Location>
+    <HomePage>http://www.latimes.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/LT_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <Slot>6</Slot>
+    <Newspaper>The Washington Times</Newspaper>
+    <Location>
+        <City>Washington</City>
+        <State>DC</State>
+    </Location>
+    <HomePage>http://www.washingtontimes.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/WT_logo.png</Logo>
+   </Row>
+   
+   <Row>
+    <Slot>7</Slot>
+    <Newspaper>The Wall Street Journal</Newspaper>
+    <Location>
+        <City>New York</City>
+        <State>NY</State>
+    </Location>
+    <HomePage>http://www.wsj.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/WSJ_logo.png</Logo>
+   </Row>
+   
+    <Row>
+    <Slot>8</Slot>
+    <Newspaper>Greenwich News</Newspaper>
+    <Location>
+        <City>Chicago</City>
+        <State>IL</State>
+    </Location>
+    <HomePage>http://www.chicagotribune.com</HomePage>
+    <Logo>http://cs-server.usc.edu:45678/hw/hw4/CT_logo.png</Logo>
+   </Row>
+   
+  </Table>
+</Workbook>

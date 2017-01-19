@@ -1,0 +1,195 @@
+html{
+    width: 100%;
+    height: 100%;
+    
+}
+body{
+    height: 100%;
+    margin-top: 142px;
+    margin-left: 10%;
+    margin-right: 10%;
+    
+    align-self: center;
+    font-family: 'Trebuchet MS';
+    min-width: 1024px;
+}
+p#special {
+color: green;
+border: solid red;
+}
+/*div#top {
+    padding: 30px;
+}*/
+span.top_left{
+    font-size: 300%;
+    font-family: 'Trebuchet MS', sans-serif; 
+    font-weight: 900;
+}
+span.top_right{
+    font-size: 130%;
+    line-height: 1.5;
+    font-family: 'Trebuchet MS', sans-serif; 
+    font-weight: 300;
+}
+div.navibar{
+    text-align: center;
+    
+}
+.navibar ul {
+    width: 95%;
+    height: 30px;
+    list-style-type: none;
+    background: black;
+    display: inline-block;
+    padding-left: 5%;
+}
+.navibar li{
+    float: left;
+    text-align: center;
+    line-height: 100%;
+    height: 30px;
+    width: 15%;
+}
+/*.navibar li + li{
+    margin-left: 2%;
+}*/
+.navibar ul li a{
+    width:100%;
+    height: 100%;
+    line-height: 200%;
+    color:floralwhite;
+    display: block;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+}
+.navibar ul li a:hover{
+    background-color: firebrick;
+}
+
+#turnred:hover{
+    background-color: red;
+}
+div.firstpara{
+    width: 48%;
+    float: left;
+    height: 100%;
+    
+    background-color:#fff;
+}
+div.secondpara1{
+    width:20%;float:left;background-color:white;height:230px;padding-left:5%;
+}
+div.secondpara1 a{
+    color: firebrick;
+}
+div.secondpara2{
+    width:65%;float:right;background-color:#fff;height:230px;padding-left: 5%; padding-right:5%; 
+}
+div.secondpara2 h2{
+    color:firebrick;
+}
+div.secondpara2 a{
+    color:firebrick;
+}
+div.cut{
+    height: 1px;
+    width: 90%;
+    margin: 0% 5%;
+    background-color:dimgray;
+    overflow: hidden;
+}
+div.cut2{
+    height: 1px;
+    width: 70%;
+    margin-left: 26%;
+    margin-bottom: 1.5%;
+    background-color:black;
+    overflow: hidden;
+}
+div.thirdpara1{
+    
+    width:70%;float:left;
+}
+div.thirdpara2{
+    width:30%;;
+}
+div.thirdpara{
+    text-decoration: none;
+    
+}
+a.nounder{
+    text-decoration:none;
+    text-decoration-color: black;
+    color: black;
+}
+a.nounder:hover{
+    background-color: darkred;
+    color: white;
+}
+
+div.keleyi:hover{
+    background-color: red;
+}
+div.keleyi:hover > .secondpara1
+{
+    background-color: crimson;
+    color: white;
+}
+div.keleyi:hover > .secondpara2
+{
+    background-color: crimson;
+    color: white;
+}
+div.keleyi:hover > .secondpara1 a
+{
+    background-color: crimson;
+    color: gold;
+}
+div.keleyi:hover > .secondpara2 a
+{
+    background-color: crimson;
+    color: gold;
+}
+div.keleyi:hover > .secondpara2 + #secondchange
+{
+    background-color: crimson;
+    color: gold;
+}
+div.keleyi:hover > .secondpara1 h2
+{
+    color: gold;
+}
+div.keleyi:hover > .secondpara2 h2
+{
+    color: gold;
+}
+div.thirdpara{
+    height:85px;width:100%;
+}
+div.fourthpara{
+    height:120px;width:100%;
+    background-color:#fff;
+    float:left;
+}
+div.footer{
+    height: 40px;
+    width:100%;
+    float: right;
+    padding-right: 0px;
+    text-align: right;
+}
+
+p.title{
+    font-size: 30px;
+    font-weight: 900;
+}
+hr{
+    height: 1px;
+    border: none;
+    background-color: grey;
+}
+hr.secondline{
+    height:1px; border:none; border-top:1px #fff dashed ;
+    margin-top: 0px;
+}

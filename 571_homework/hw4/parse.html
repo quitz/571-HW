@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>Homework 4</title>
+</head>
+<body>
+<div align="center" style="margin-top:100px">
+    <h1>Enter URL for Newspaper List XML File</h1>
+    <!-- <p><input type="text" id="filename" /></p>    
+    <button type="submit" onclick="transferXmlToHtml(filename.value)">Submit Query</button>-->
+    <form name="fileForm">
+        <input type="text" name="URL">
+        <br/>
+        <br/>
+        <input type="button" name="submit" value="Submit Query" onClick="transferXmlToHtml(this.form)">
+    </form>
+</div>
+    <script type="text/javascript">
+    
+    function loadXml(fileName){
+        if(fileName==''){
+            alert('You do not input any file, please input a file name');
+            exit();
+        }
+
+        if(window.XMLHttpRequest){
+            xmlhttp = new XMLHttpRequest();
+        }
+        else{
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.open("GET",fileName,false);
+        xmlhttp.send();
+        if (xmlhttp.status==404){
+            alert("File doesn't exist!");
+            exit();
+        }
+        xmlContent = xmlhttp.responseXML;
+        return xmlContent;
+    }
+        
+    function displayNewsInfo(xmlContent){
+        //aaa=document.getElementById("filename");
+        //alert(xmlContent.nodeValue);
+        htmlContent="";
+        
+        if(xmlContent.getElementsByTagName("parsererror").length==1){
+            alert("Error in XML file");
+            return htmlContent;
+        }
+        
+        x = xmlContent.getElementsByTagName('Row');
+        
+        if(x.length==0){
+            alert("There are no newspapers in that XML file");
+            return htmlContent;
+        }
+        
+        //newdocument = window.open(fileName,'_blank','alwaysRaised=1,scrollbars=1,titlebar=1,resizable =1');
+        htmlContent +="<html><head><title>Online Newspaper Listings</title></head><body>";
+        
+        htmlContent +="<table border='1' align='center'>";
+        x = xmlContent.getElementsByTagName('Row');
+        xHeader = xmlContent.getElementsByTagName('Data');
+        htmlContent +="<tr>";
+        for(i=0;i<xHeader.length;i++){
+            //alert(xHeader.childNodes[i].nodeType);
+            if(xHeader[i].nodeType!=1)
+                break;
+            htmlContent +="<th>";
+            htmlContent +=xHeader[i].childNodes[0].nodeValue;
+            htmlContent +="</th>";
+        }
+        htmlContent +="</tr>";
+        
+
+        htmlContent +="<tr>";
+        index = xHeader.length*2 +1;  
+
+        for(i=0;i<x.length;i++){
+            a = x[i].childNodes;
+            
+            for(j=0;j<a.length;j++){
+                if(a[j].nodeType!=1)
+                    continue;
+
+                htmlContent +="<td>";
+                
+                if(a[j].nodeName=='Slot' || a[j].nodeName=='Newspaper'){
+                    if(a[j].firstChild==null)
+                        continue;
+                    htmlContent +=a[j].childNodes[0].nodeValue;
+                }
+                else if(a[j].nodeName=='Location'){
+                    b = a[j].childNodes;
+                    htmlContent +="<ul>";
+                    for(k=0;k<b.length;k++){
+                        
+                        if(b[k].nodeType!=1 || b[k].firstChild==null)
+                            continue;
+                        htmlContent +='<li>';
+                        htmlContent +=b[k].childNodes[0].nodeValue; 
+                        htmlContent +='</li>';
+                    }
+                htmlContent +="</ul></td>";
+                }
+                else if(a[j].nodeName=='HomePage'){
+                    if(a[j].firstChild==null)
+                        continue;
+                    htmlContent +="<a href='"+a[j].childNodes[0].nodeValue+"'>"+a[j].childNodes[0].nodeValue+"</a>";
+                }
+                else if(a[j].nodeName=='Logo'){
+                    if(a[j].firstChild==null)
+                        continue;
+                    htmlContent +="<img height=150px width=200px src='"+a[j].childNodes[0].nodeValue+"' />";
+                }
+            }
+            htmlContent +='</tr>';
+        }
+        htmlContent +='</table><noscript></body></html>';
+        //newdocument.document.close();
+        
+        return htmlContent;
+    }
+    
+    function transferXmlToHtml(fileForm){
+        fileName = fileForm.URL.value;
+        xmlContent = loadXml(fileName);
+        
+        if (window.ActiveXObject){
+				if (xmlContent.parseError.errorCode != 0){
+					var err = xmlContent.parseError;
+					htmlContent = displayNewsInfo(xmlContent);
+					nHtml = window.open(fileName,'_blank','alwaysRaised=1,scrollbars=1,titlebar=1,resizable =1');
+					hWin.document.write(htmlContent);
+				}
+				else {
+					htmlContent=displayNewsInfo(xmlContent);
+					nHtml = window.open(fileName,'_blank','alwaysRaised=1,scrollbars=1,titlebar=1,resizable =1');
+					nHtml.document.write(htmlContent);
+				}
+			}
+        else{
+            
+            htmlContent=displayNewsInfo(xmlContent);
+            if(htmlContent=="")
+                return;
+            nHtml = window.open(fileName,'_blank','alwaysRaised=1,scrollbars=1,titlebar=1,resizable =1');
+            nHtml.document.write(htmlContent);
+        }
+        nHtml.document.close();
+    }
+    </script>
+<noscript> 
+</body>
+</html>
